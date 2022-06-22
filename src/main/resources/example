@@ -1,0 +1,66 @@
+
+namespace
+    : 'namespace' Name ';'
+    ;
+
+imports
+    : 'import' Name 'from' Name ';'
+    | ('import' Name 'from' Name ';')*
+    ;
+
+type_definitions
+    : type_definition
+    | (type_definition)*
+    ;
+type_definition
+    : 'type {' type_declarations '}'
+    ;
+type_declarations
+    : type_declaration*
+    ;
+type_declaration
+    : type Name ';'
+    ;
+type
+    : Name
+    ;
+
+trait_definitions
+    : trait_definition+
+    ;
+
+trait_definition
+    : 'trait {' trait_declarations '}'
+    ;
+trait_declarations
+    : trait_declaration trait_declaration*
+    ;
+trait_declaration
+    : Name '()'
+    ;
+
+statements
+    : new_statements
+    | layer_statements
+    | output_statements
+    ;
+new_statements
+    : new_statement new_statement*
+    ;
+new_statement
+    : 'var' name = 'new ' Name '(' arguments ')'
+    ;
+arguments
+    : 'image' '=' Name
+    | 'text' '=' Name
+    ;
+layer_statements
+    : layer_statement layer_statement*
+    ;
+layer_statement
+    : 'var' Name '=' Name '::Mobile'
+    | 'var' Name '=' Name '::Web'
+    ;
+output_statements
+    : 'send(' Name ')'
+    ;
